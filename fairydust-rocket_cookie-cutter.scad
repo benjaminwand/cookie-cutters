@@ -1,0 +1,69 @@
+e = 1;  // roughly the size of straight party of curves
+w1 = 2.4;   // cookie cutter, thicker side
+w2 = 0.8;   // cookie cutter, thinner side
+h = 15;     // cookie cutter height
+mh = 2;     // thickness of connection to window
+sw = 18;    // size of window
+dt = 2;     // dough thickness at the window carve, '0' for cut
+
+// points for shape and bezier curves
+p1 = [20, 0];
+p2 = [20, 14.5];
+p3 = [20, 21];
+p4 = [7.8, 28.2];
+p5 = [5.6, 0];
+p6 = [-5.6, 0];
+p7 = [33.7, 0];
+p8 = [33.7, 25];
+p9 = [32, 43];
+p10 = [19.5, 51];
+p11 = [25, 88];
+p12 = [15, 97];
+p13 = [0, 103.8];
+
+// actual model
+fn1 = fn(p1, p4);
+d1 = 1/fn1;
+curve(p1, p2, p3, p4, d1, fn1);
+mirror([1,0,0]) curve(p1, p2, p3, p4, d1, fn1);
+straightline(p4, p5);
+mirror([1,0,0]) straightline(p4, p5);
+straightline(p5, p6);
+straightline(p1, p7);
+mirror([1,0,0]) straightline(p1, p7);
+fn2 = fn(p7, p10);
+d2 = 1/fn2;
+curve(p7, p8, p9, p10, d2, fn2);
+mirror([1,0,0]) curve(p7, p8, p9, p10, d2, fn2);
+fn3 = fn(p10, p13);
+d3 = 1/fn3;
+curve(p10, p11, p12, p13, d3, fn3);
+mirror([1,0,0]) curve(p10, p11, p12, p13, d3, fn3);
+difference(){
+    union(){
+        translate([-20,60, 0]) cube([40, sw/2 + 4, mh], false);
+        translate([0,60 +sw/4 +2, 0]) cylinder(h-dt, (sw+w1-w2)/2, sw/2, false);
+    };
+    translate([0,60 +sw/4 +2, 0]) cylinder(3*h, sw/2-w2, sw/2-w2, true);
+};
+    
+// functions and modules
+function fn(a, b) = round(sqrt(pow(a[0]-b[0],2) + (pow(a[1]-b[1], 2)))/e);
+    
+module shape() cylinder(h, w1/2, w2/2, $fn=12);
+
+function four_pts_cve(a, b, c, d, k, idx) = 
+    (a*pow(k*idx,2) + 2*b*(1-k*idx)*k*idx + c*pow((1-k*idx), 2))*k*idx 
+    + (b*pow(k*idx,2) + 2*c*(1-k*idx)*k*idx + d*pow((1-k*idx), 2))*(1-k*idx);
+    
+module curve(a, b, c, d, k, l) for (i= [0:l-1]) 
+    hull(){ 
+       translate(four_pts_cve(a, b, c, d, k, i)) shape();
+       translate(four_pts_cve(a, b, c, d, k, i+1)) shape();
+    };
+
+module straightline(a, b)
+    hull(){ 
+       translate(a) shape();
+       translate(b) shape();
+    };
