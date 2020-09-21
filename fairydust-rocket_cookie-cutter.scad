@@ -52,14 +52,22 @@ function fn(a, b) = round(sqrt(pow(a[0]-b[0],2) + (pow(a[1]-b[1], 2)))/e);
     
 module shape() cylinder(h, w1/2, w2/2, $fn=12);
 
-function four_pts_cve(a, b, c, d, k, idx) = 
-    (a*pow(k*idx,2) + 2*b*(1-k*idx)*k*idx + c*pow((1-k*idx), 2))*k*idx 
-    + (b*pow(k*idx,2) + 2*c*(1-k*idx)*k*idx + d*pow((1-k*idx), 2))*(1-k*idx);
+function two_points(a, b, n, idx) = 
+    a * n*idx 
+    + b * (1-n*idx);
+
+function three_points(a, b, c, n, idx) = 
+    two_points(a, b, n, idx) * n*idx
+    + two_points(b, c, n, idx) * (1-n*idx);
+
+function four_points(a, b, c, d, n, idx) = 
+    three_points(a, b, c, n, idx) * n*idx
+    + three_points(b, c, d, n, idx) * (1-n*idx);
     
-module curve(a, b, c, d, k, l) for (i= [0:l-1]) 
+module curve(a, b, c, d, n, l) for (i= [0:l-1]) 
     hull(){ 
-       translate(four_pts_cve(a, b, c, d, k, i)) shape();
-       translate(four_pts_cve(a, b, c, d, k, i+1)) shape();
+       translate(four_points(a, b, c, d, n, i)) shape();
+       translate(four_points(a, b, c, d, n, i+1)) shape();
     };
 
 module straightline(a, b)
