@@ -22,23 +22,17 @@ p12 = [15, 97];
 p13 = [0, 103.8];
 
 // actual model
-fn1 = fn(p1, p4);
-d1 = 1/fn1;
-curve(p1, p2, p3, p4, d1, fn1);
-mirror([1,0,0]) curve(p1, p2, p3, p4, d1, fn1);
+curve(p1, p2, p3, p4);
+mirror([1,0,0]) curve(p1, p2, p3, p4);
 straightline(p4, p5);
 mirror([1,0,0]) straightline(p4, p5);
 straightline(p5, p6);
 straightline(p1, p7);
 mirror([1,0,0]) straightline(p1, p7);
-fn2 = fn(p7, p10);
-d2 = 1/fn2;
-curve(p7, p8, p9, p10, d2, fn2);
-mirror([1,0,0]) curve(p7, p8, p9, p10, d2, fn2);
-fn3 = fn(p10, p13);
-d3 = 1/fn3;
-curve(p10, p11, p12, p13, d3, fn3);
-mirror([1,0,0]) curve(p10, p11, p12, p13, d3, fn3);
+curve(p7, p8, p9, p10);
+mirror([1,0,0]) curve(p7, p8, p9, p10);
+curve(p10, p11, p12, p13);
+mirror([1,0,0]) curve(p10, p11, p12, p13);
 difference(){
     union(){
         translate([-20,60, 0]) cube([40, sw/2 + 4, mh], false);
@@ -64,7 +58,9 @@ function four_points(a, b, c, d, n, idx) =
     three_points(a, b, c, n, idx) * n*idx
     + three_points(b, c, d, n, idx) * (1-n*idx);
     
-module curve(a, b, c, d, n, l) for (i= [0:l-1]) 
+module curve(a, b, c, d) 
+    let (idx=fn(a, d), n = 1/idx)
+    for (i= [0:idx-1]) 
     hull(){ 
        translate(four_points(a, b, c, d, n, i)) shape();
        translate(four_points(a, b, c, d, n, i+1)) shape();
