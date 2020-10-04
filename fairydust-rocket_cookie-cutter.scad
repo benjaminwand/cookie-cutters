@@ -22,17 +22,17 @@ p12 = [15, 97];
 p13 = [0, 103.8];
 
 // actual model
-curve(p1, p2, p3, p4);
-mirror([1,0,0]) curve(p1, p2, p3, p4);
-straightline(p4, p5);
-mirror([1,0,0]) straightline(p4, p5);
-straightline(p5, p6);
-straightline(p1, p7);
-mirror([1,0,0]) straightline(p1, p7);
-curve(p7, p8, p9, p10);
-mirror([1,0,0]) curve(p7, p8, p9, p10);
-curve(p10, p11, p12, p13);
-mirror([1,0,0]) curve(p10, p11, p12, p13);
+b_curve([p1, p2, p3, p4]);
+mirror([1,0,0]) b_curve([p1, p2, p3, p4]);
+straight_line(p4, p5);
+mirror([1,0,0]) straight_line(p4, p5);
+straight_line(p5, p6);
+straight_line(p1, p7);
+mirror([1,0,0]) straight_line(p1, p7);
+b_curve([p7, p8, p9, p10]);
+mirror([1,0,0]) b_curve([p7, p8, p9, p10]);
+b_curve([p10, p11, p12, p13]);
+mirror([1,0,0]) b_curve([p10, p11, p12, p13]);
 difference(){
     union(){
         translate([-20,60, 0]) cube([40, sw/2 + 4, mh], false);
@@ -46,28 +46,23 @@ function fn(a, b) = round(sqrt(pow(a[0]-b[0],2) + (pow(a[1]-b[1], 2)))/e);
     
 module shape() cylinder(h, w1/2, w2/2, $fn=12);
 
-function two_points(a, b, n, idx) = 
-    a * n*idx 
-    + b * (1-n*idx);
-
-function three_points(a, b, c, n, idx) = 
-    two_points(a, b, n, idx) * n*idx
-    + two_points(b, c, n, idx) * (1-n*idx);
-
-function four_points(a, b, c, d, n, idx) = 
-    three_points(a, b, c, n, idx) * n*idx
-    + three_points(b, c, d, n, idx) * (1-n*idx);
-    
-module curve(a, b, c, d) 
-    let (idx=fn(a, d), n = 1/idx)
-    for (i= [0:idx-1]) 
-    hull(){ 
-       translate(four_points(a, b, c, d, n, i)) shape();
-       translate(four_points(a, b, c, d, n, i+1)) shape();
-    };
-
-module straightline(a, b)
+module straight_line(a, b)
     hull(){ 
        translate(a) shape();
        translate(b) shape();
     };
+
+function b_pts(pts, n, idx) =
+    len(pts)>2 ? 
+        b_pts([for(i=[0:len(pts)-2])pts[i]], n, idx) * n*idx 
+            + b_pts([for(i=[1:len(pts)-1])pts[i]], n, idx) * (1-n*idx)
+        : pts[0] * n*idx 
+            + pts[1] * (1-n*idx);
+    
+module b_curve(pts) 
+    let (idx=fn(pts[0], pts[len(pts)-1]), n = 1/idx){       
+        for (i= [0:idx-1]) 
+        hull(){ 
+           translate(b_pts(pts, n, i)) shape();
+           translate(b_pts(pts, n, i+1)) shape();          
+    };}
