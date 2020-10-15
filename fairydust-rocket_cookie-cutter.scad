@@ -1,4 +1,4 @@
-e = 1;  // roughly the size of straight party of curves
+fs = 1;  // roughly the size of straight party of curves
 w1 = 2.4;   // cookie cutter, thicker side
 w2 = 0.8;   // cookie cutter, thinner side
 h = 15;     // cookie cutter height
@@ -42,7 +42,7 @@ difference(){
 };
     
 // functions and modules
-function fn(a, b) = round(sqrt(pow(a[0]-b[0],2) + (pow(a[1]-b[1], 2)))/e);
+function fn(a, b) = round(sqrt(pow(a[0]-b[0],2) + (pow(a[1]-b[1], 2)))/fs);
     
 module shape() cylinder(h, w1/2, w2/2, $fn=12);
 
