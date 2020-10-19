@@ -15,19 +15,19 @@ p9 = [3, 13, 0];
 p10 = [6, 13, 0];
 p11 = [9, 13, 0];
 p12 = [10, 11.5, 0];
+    
+//rainbow
+all_rainbow = concat(
+    b_curv([p10, p11, p12, p1]),
+    b_curv([p7, p8, p9, p10]),
+    b_curv([p4, p5, p6, p7]),
+    b_curv([p1, p2, p3, p4]));
+    
+ rainbow(all_rainbow);  
 
 // displaying all defining points
 for (i=[p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11, p12]) 
     translate(i) color("grey")sphere(0.3, $fn=20);
-    
-//rainbow
-all_rainbow = concat(
-    b_curv([p1, p2, p3, p4]),
-    b_curv([p4, p5, p6, p7]),
-    b_curv([p7, p8, p9, p10]),
-    b_curv([p10, p11, p12, p1]));
-    
- rainbow(all_rainbow);  
 
 // functions and modules
 function fn(a, b) = round(sqrt(pow(a[0]-b[0],2) + pow(a[1]-b[1], 2))/fs);
