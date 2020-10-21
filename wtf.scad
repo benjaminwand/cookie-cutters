@@ -1,6 +1,3 @@
-/*color("red")mirror([1, 0, 0])scale([0.4, 0.4])translate([-89.565, -85, 10])
-    import("wtf2.svg");*/
-
 // variables
 fs = 0.5;  // roughly the size of straight parts of curves
 w1 = 2.4;   // cookie cutter, thicker side
