@@ -17,10 +17,9 @@ p8 = [-10, 0];
 // examples
 b_curve([p1, p2, p3, p4]);
 //b_curve_rainbow([p1, p3, p2, p4]);
-//b_curve_rainbow([p5, p6, p7, p8]);
+b_curve_rainbow([p5, p6, p7, p8]); // circel shape
 b_curve_rainbow([p2, p6, p7, p8, p4]);
 rainbow([p2, p6, p7, p8, p4]);
-circle (10);
 circle_ish(10, 93, 22);
 
 // functions and modules
