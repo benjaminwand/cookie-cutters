@@ -1,5 +1,5 @@
 // variables
-fs = 0.5;  // roughly the size of straight parts of curves
+fs = 1;  // roughly the size of straight parts of curves
 w1 = 2.4;   // cookie cutter, thicker side
 w2 = 0.8;   // cookie cutter, thinner side
 h = 15;     // cookie cutter height
@@ -17,13 +17,15 @@ p8 = [-10, 0];
 // examples
 b_curve([p1, p2, p3, p4]);
 //b_curve_rainbow([p1, p3, p2, p4]);
-b_curve_rainbow([p5, p6, p7, p8]); // circel shape
+b_curve_rainbow([p5, p6, p7, p8]); // circle shape
 b_curve_rainbow([p2, p6, p7, p8, p4]);
 rainbow([p2, p6, p7, p8, p4]);
-circle_ish(10, 93, 22);
+circle_ish(10, 93);     // calculated fn
+circle_ish(15, 143, 4); // given fn
 
 // functions and modules
 function fn(a, b) = round(sqrt(pow(a[0]-b[0],2) + pow(a[1]-b[1], 2))/fs);
+function fn_circle(r, angle) = round((PI *r*angle)/(180*fs));
 
 module shape() cylinder(h, w1/2, w2/2, $fn=12);
 
@@ -31,15 +33,22 @@ module straight_line(a, b)
     hull(){ 
        translate(a) shape();
        translate(b) shape();
-    };
+    }
     
 module circle_ish(r, angle, fn) 
- let (interval = angle/fn)
+    if (fn==undef)
+        let(fn=fn_circle(r, angle))
+            circle_ish_inner(r, angle, fn);
+    else
+        circle_ish_inner(r, angle, fn);
+    
+module circle_ish_inner(r, angle, fn)
+    let (interval = angle/fn)
     for (i= [0:interval:(angle-interval)]) 
         hull(){
             translate([cos(i)*r, sin(i)*r, 0]) shape(); 
             translate([cos(i+interval)*r, sin(i+interval)*r, 0]) shape(); 
-        };
+        }
 
 function b_pts(pts, n, idx) =
     len(pts)>2 ? 
@@ -54,7 +63,8 @@ module b_curve(pts)
         hull(){ 
            translate(b_pts(pts, n, i)) shape();
            translate(b_pts(pts, n, i+1)) shape();          
-    };}
+        }
+    }
     
 module b_curve_rainbow(pts) 
     let (idx=fn(pts[0], pts[len(pts)-1]), n = 1/idx)
