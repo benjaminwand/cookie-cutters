@@ -29,35 +29,28 @@ function fn_circle(r, angle) = round((PI *r*angle)/(180*fs));
 
 module shape() cylinder(h, w1/2, w2/2, $fn=12);
 
-module straight_line(a, b)
+module straight_line(a, b)  // a and b are points/vectors
     hull(){ 
        translate(a) shape();
        translate(b) shape();
     }
     
-module circle_ish(r, angle, fn) 
+module circle_ish(r, angle, fn)     // r = radius, fn is optional
     if (fn==undef)
         let(fn=fn_circle(r, angle))
             circle_ish_inner(r, angle, fn);
     else
         circle_ish_inner(r, angle, fn);
     
-module circle_ish_inner(r, angle, fn)
+module circle_ish_inner(r, angle, fn)   // gets called by circle_ish()
     let (interval = angle/fn)
     for (i= [0:interval:(angle-interval)]) 
         hull(){
             translate([cos(i)*r, sin(i)*r, 0]) shape(); 
             translate([cos(i+interval)*r, sin(i+interval)*r, 0]) shape(); 
         }
-
-function b_pts(pts, n, idx) =
-    len(pts)>2 ? 
-        b_pts([for(i=[0:len(pts)-2])pts[i]], n, idx) * n*idx 
-            + b_pts([for(i=[1:len(pts)-1])pts[i]], n, idx) * (1-n*idx)
-        : pts[0] * n*idx 
-            + pts[1] * (1-n*idx);
     
-module b_curve(pts) 
+module b_curve(pts)             // pts is an array of points
     let (idx=fn(pts[0], pts[len(pts)-1]), n = 1/idx){       
         for (i= [0:idx-1]) 
         hull(){ 
@@ -66,7 +59,14 @@ module b_curve(pts)
         }
     }
     
-module b_curve_rainbow(pts) 
+function b_pts(pts, n, idx) =       // gets called by b_curve() ...
+    len(pts)>2 ?                    // ... and b_curve_rainbow() 
+        b_pts([for(i=[0:len(pts)-2])pts[i]], n, idx) * n*idx 
+            + b_pts([for(i=[1:len(pts)-1])pts[i]], n, idx) * (1-n*idx)
+        : pts[0] * n*idx 
+            + pts[1] * (1-n*idx);
+            
+module b_curve_rainbow(pts)     // use it to find points for Bézier curve
     let (idx=fn(pts[0], pts[len(pts)-1]), n = 1/idx)
     for (i= [0:idx]) 
     color([
