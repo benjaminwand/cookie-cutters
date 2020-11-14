@@ -12,16 +12,18 @@ p4 = [-5, 5];
 p5 = [10, 0];
 p6 = [10, 10*4/3];
 p7 = [-10, 10*4/3];
+
+scale(0.2)import("cactus.svg");
+
 p8 = [-10, 0];
 
 // examples
+circle_ish(15, 143, 4); // given fn
+circle_ish(10, 93);     // calculated fn
 b_curve([p1, p2, p3, p4]);
-//b_curve_rainbow([p1, p3, p2, p4]);
 b_curve_rainbow([p5, p6, p7, p8]); // circle shape
 b_curve_rainbow([p2, p6, p7, p8, p4]);
 rainbow([p2, p6, p7, p8, p4]);
-circle_ish(10, 93);     // calculated fn
-circle_ish(15, 143, 4); // given fn
 
 // functions and modules
 function fn(a, b) = round(sqrt(pow(a[0]-b[0],2) + pow(a[1]-b[1], 2))/fs);
