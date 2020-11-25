@@ -26,8 +26,11 @@ rainbow([p2, p6, p7, p8, p4]);
 function fn(a, b) = round(sqrt(pow(a[0]-b[0],2) + pow(a[1]-b[1], 2))/fs);
 function fn_circle(r, angle) = round((PI *r*angle)/(180*fs));
 
-function with_slope(p, x_diff, s) // point, difference in x, slope
+function with_slope_diff(p, x_diff, s) // point, difference in x, slope
     = [p[0] + x_diff, p[1] + x_diff * s];  
+    
+function with_slope_angle(p, dist, angle) // point, distance, angle
+    = p + rotate([0,0, angle])[dist,0,0];  
 
 module shape() cylinder(h, w1/2, w2/2, $fn=12);
 
