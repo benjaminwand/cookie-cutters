@@ -6,10 +6,7 @@ w3 = 0.8;   // star carve
 w4 = 0.4;   // keyboard carve
 h = 15;     // cookie cutter height
 dt = 2;     // dough thickness at carve, 0 for cut
-sc = 60;    // diameter of cookie
-
-//color("green")translate([0, 0, h-dt-0.1])scale(0.0012*sc)mirror([1, 0, 0])
-  //  translate([-364, 177.2408])import("sterntastatur.svg");
+sc = 80;    // diameter of cookie
 
 // model
 // circle
@@ -82,11 +79,9 @@ translate([0.12, -0.114]*sc)key(0.2095, 0.027);
 
 // floor
 linear_extrude(2) 
-    polygon(points=[p1 + [w1/2,0,0], p1 - [w1/2,0,0],[w1/2, -w1/2], p3 + [w1/2,0,0], p3 - [w1/2,0,0], [-w1/2, -w1/2], p5 + [w1/2,0,0], p5 - [w1/2,0,0], [p5[0]-w1/2 , -0.1142*sc], [-0.2705, -0.1142]*sc, p6, [-0.21*sc, 0.073*sc], [-0.21*sc, p7[1]], p8 + [w1/2,0,0], [p8[0] + w1/2, 0.073*sc], [p10[0] - w1/2, 0.073*sc], p10 - [w1/2,0,0], p12, [p12[0], 0.0118]]);
+    polygon(points=[p1 + [w1/2,0,0], p1 - [w1/2,0,0],[w1/2, -w1/2], p3 + [w1/2,0,0], p3 - [w1/2,0,0], [-w1/2, -w1/2], p5 + [w1/2,0,0], p5 - [w1/2,0,0], [p5[0]-w1/2 , -0.1142*sc], [-0.2705, -0.1142]*sc, p6, [-0.21*sc, 0.073*sc], [-0.21*sc, p7[1]], p8 + [w1/2,0,0], [p8[0] + w1/2, 0.073*sc], [p10[0] - w1/2, 0.073*sc], p10 - [w1/2,0,0], p11, p12, [p12[0], 0.0118]]);
 for(i = [0 : 72 : 360]) rotate([0, 0, i])
     linear_extrude(2) polygon(points=[[w1/2, p9[1]], [-w1/2, p9[1]], [-w1/2, sc/2], [w1/2, sc/2]]);
-
-//color("black") translate([-0.21*sc, 0.073*sc]) sphere(1);
 
 // functions and modules
 function fn_circle(r, angle) = round((PI *r*angle)/(180*fs));
@@ -121,4 +116,5 @@ module circle_ish(r, angle, fn)     // r = radius, fn is optional
     
 module key(x, y)            // x,y: width and height of crosses
     {straight_line3([x/2*sc-w4/2, y/2*sc-w4/2], [-x/2*sc+w4/2, -y/2*sc+w4/2]);
-    straight_line3([x/2*sc-w4/2, -y/2*sc+w4/2], [-x/2*sc+w4/2, y/2*sc-w4/2]);}        
+    straight_line3([x/2*sc-w4/2, -y/2*sc+w4/2], [-x/2*sc+w4/2, y/2*sc-w4/2]);}
+        
