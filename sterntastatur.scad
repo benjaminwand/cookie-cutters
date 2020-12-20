@@ -79,9 +79,10 @@ translate([0.12, -0.114]*sc)key(0.2095, 0.027);
 
 // floor
 linear_extrude(2) 
-    polygon(points=[p1 + [w1/2,0,0], p1 - [w1/2,0,0],[w1/2, -w1/2], p3 + [w1/2,0,0], p3 - [w1/2,0,0], [-w1/2, -w1/2], p5 + [w1/2,0,0], p5 - [w1/2,0,0], [p5[0]-w1/2 , -0.1142*sc], [-0.2705, -0.1142]*sc, p6, [-0.21*sc, 0.073*sc], [-0.21*sc, p7[1]], p8 + [w1/2,0,0], [p8[0] + w1/2, 0.073*sc], [p10[0] - w1/2, 0.073*sc], p10 - [w1/2,0,0], p11, p12, [p12[0], 0.0118]]);
+    polygon(points=[
+        p1 + [w1/2,0,0], p3, p5 - [w1/2,0,0], [-0.2705, -0.1142]*sc, p6 - [w1/2,0,0], [-0.21*sc, 0.08*sc], [-0.21*sc, p7[1]], p8 + [w1/2,0,0], [p8[0] + w1/2, 0.08*sc], [p10[0] - w1/2, 0.08*sc], p10 - [w1/2,0,0], p11, p12, [0.34*sc, -0.12*sc]]);
 for(i = [0 : 72 : 360]) rotate([0, 0, i])
-    linear_extrude(2) polygon(points=[[w1/2, p9[1]], [-w1/2, p9[1]], [-w1/2, sc/2], [w1/2, sc/2]]);
+    linear_extrude(2) polygon(points=[[w1/2, p9[1]-w1], [-w1/2, p9[1]-w1], [-w1/2, sc/2], [w1/2, sc/2]]);
 
 // functions and modules
 function fn_circle(r, angle) = round((PI *r*angle)/(180*fs));
