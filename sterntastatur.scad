@@ -3,7 +3,7 @@ fs = 2;  // roughly the size of straight parts of curves
 w1 = 2.4;   // cookie cutter, thicker side
 w2 = 0.8;   // cookie cutter, thinner side
 w3 = 0.8;   // star carve
-w4 = 0.4;   // keyboard carve
+w4 = 0.5;   // keyboard carve
 h = 15;     // cookie cutter height
 dt = 2;     // dough thickness at carve, 0 for cut
 sc = 80;    // diameter of cookie
@@ -79,8 +79,7 @@ translate([0.12, -0.114]*sc)key(0.2095, 0.027);
 
 // floor
 linear_extrude(2) 
-    polygon(points=[
-        p1 + [w1/2,0,0], p3, p5 - [w1/2,0,0], [-0.2705, -0.1142]*sc, p6 - [w1/2,0,0], [-0.21*sc, 0.08*sc], [-0.21*sc, p7[1]], p8 + [w1/2,0,0], [p8[0] + w1/2, 0.08*sc], [p10[0] - w1/2, 0.08*sc], p10 - [w1/2,0,0], p11, p12, [0.34*sc, -0.12*sc]]);
+    polygon(points=[p1 + [w1/2,0,0], p3, p5 - [w1/2,0,0], [-0.245, -0.13]*sc, [-0.36, -0.13]*sc, [-0.36, 0.025]*sc, p6, [-0.225, 0.09]*sc, [-0.21*sc, p7[1]], p8 + [w1/2,0,0], [p8[0] + w1/2, 0.09*sc], [p10[0] - w1/2, 0.09*sc], p10, p11, p12, [0.355*sc, 0.09*sc], [0.355*sc, -0.13*sc], [0.23*sc, -0.13*sc]]);
 for(i = [0 : 72 : 360]) rotate([0, 0, i])
     linear_extrude(2) polygon(points=[[w1/2, p9[1]-w1], [-w1/2, p9[1]-w1], [-w1/2, sc/2], [w1/2, sc/2]]);
 
