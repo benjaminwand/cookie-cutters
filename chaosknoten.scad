@@ -136,11 +136,13 @@ b_curve2([p33, p33a, p34]);
 b_curve2([p35, p35a, p36]);
 b_curve2([p37, p37a, p37b, p38]);
 b_curve2([p39, p39a, p39b, p40]);
-// floor
-hull(){
-    for (x = [r, sc-r], y = [r, sc*0.75-r])
-        translate ([x, y]) cylinder(2, r, r, false);
-}
+// floor / grid
+linear_extrude(w1) 
+    polygon(points=[p1, p2, p2/2 + p3/2 + [0, 0.015*sc], p3, p3/2 + p4/2 - [0.025*sc, 0],  p4, p4/2 + p5/2 - [0, 0.005*sc], p5, p6, p24, p26, p28, p30, p38, p36, p39, p34, p32, p31, p29, p23, p21, p19, p17]);
+for(i=[0.13, 0.45, 0.76])
+translate([i, 0, 0]*sc)cube([w1, sc*0.75, w1]);
+translate([0, 0.48, 0]*sc)cube([sc, w1, w1]);
+translate([0, 0.2, 0]*sc)cube([sc, w1, w1]);
 };
 
 // functions and modules
