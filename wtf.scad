@@ -3,7 +3,7 @@ fs = 0.5;  // roughly the size of straight parts of curves
 w1 = 2.4;   // cookie cutter, thicker side
 w2 = 0.8;   // cookie cutter, thinner side
 h = 12;     // cookie cutter height
-dt = 2;     // dough thickness carve, '0' for cut
+dt = 3;     // dough thickness carve, '0' for cut
 
 // frame
 translate([30, 30])circle_ish(10, 90, 25);

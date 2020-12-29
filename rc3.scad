@@ -3,7 +3,7 @@ fs = 1;  // roughly the size of straight parts of curves
 w1 = 2.4;   // cookie cutter, thicker side
 w2 = 0.8;   // cookie cutter, thinner side
 h = 15;     // cookie cutter height
-dc = 2;     // dough cut
+dc = 3;     // dough cut
 sc = 60;    // size of cookie
 
 // model

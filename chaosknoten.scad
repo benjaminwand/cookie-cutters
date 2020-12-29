@@ -3,7 +3,7 @@ fs = 1;  // roughly the size of straight parts of curves
 w1 = 2.4;   // cookie cutter, thicker side
 w2 = 0.8;   // cookie cutter, thinner side
 h = 15;     // cookie cutter height
-dt = 2;     // dough carve, 0 for cut
+dt = 3;     // dough carve, 0 for cut
 sc = 80;    // width of cookie cutter
 r = 10;     // radius of edges
 

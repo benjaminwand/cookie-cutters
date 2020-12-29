@@ -5,7 +5,7 @@ w2 = 0.8;   // cookie cutter, thinner side
 w3 = 0.8;   // star carve
 w4 = 0.5;   // keyboard carve
 h = 15;     // cookie cutter height
-dt = 2;     // dough thickness at carve, 0 for cut
+dt = 3;     // dough thickness at carve, 0 for cut
 sc = 80;    // diameter of cookie
 
 // model
