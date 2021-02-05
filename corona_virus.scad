@@ -17,7 +17,7 @@ p5 = [diameter/2 - spike_size*0.5, spike_size*0.5];
 p6 = [diameter/2 - spike_size*0.3, spike_size*0.25];
 // in case the spike and the curve does not align well, play with
 // the weird number in the following line:
-p7 = [diameter*0.4978 - spike_size, spike_size*0.25];
+p7 = [diameter/2 - spike_size*1.015, spike_size*0.25];
 
 // untility functions and modules
 function fn(a, b) = round(sqrt(pow(a[0]-b[0],2) + pow(a[1]-b[1], 2))/fs);
