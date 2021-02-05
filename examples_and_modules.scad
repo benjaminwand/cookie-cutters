@@ -30,8 +30,8 @@ function with_slope_diff(p, x_diff, s) // point, difference in x, slope
     = [p[0] + x_diff, p[1] + x_diff * s];  
     
 function with_slope_angle(p, dist, angle) // point, distance, angle
-    = p + rotate([0,0, angle])[dist,0,0];  
-
+    = p + [cos(angle)*dist, sin(angle)*dist, 0];
+    
 module shape() cylinder(h, w1/2, w2/2, $fn=12);
 
 module straight_line(a, b)  // a and b are points/vectors
