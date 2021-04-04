@@ -23,7 +23,11 @@ b_curve_rainbow([p2, p6, p7, p8, p4]);
 rainbow([p2, p6, p7, p8, p4]);
 
 // functions and modules
+function add(v) = [for(p=v) 1]*v;
 function fn(a, b) = round(sqrt(pow(a[0]-b[0],2) + pow(a[1]-b[1], 2))/fs);
+function fn_all(pts) = add([for(i=[0:len(pts)-2]) fn(pts[i], pts[i+1]), 
+    fn(pts[0], pts[len(pts)-1])])/3;
+
 function fn_circle(r, angle) = round((PI *r*angle)/(180*fs));
 
 function with_slope_diff(p, x_diff, s) // point, difference in x, slope
@@ -56,7 +60,8 @@ module circle_ish_inner(r, angle, fn)   // gets called by circle_ish()
         }
     
 module b_curve(pts)             // pts is an array of points
-    let (idx=fn(pts[0], pts[len(pts)-1]), n = 1/idx){       
+    let (idx=fn_all(pts), n = 1/idx){ 
+  echo(idx=idx);      
         for (i= [0:idx-1]) 
         hull(){ 
            translate(b_pts(pts, n, i)) shape();
