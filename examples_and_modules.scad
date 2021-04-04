@@ -26,7 +26,7 @@ rainbow([p2, p6, p7, p8, p4]);
 function add(v) = [for(p=v) 1]*v;   // from https://en.wikibooks.org/wiki/OpenSCAD_User_Manual/Tips_and_Tricks#Add_all_values_in_a_list
 function fn(a, b) = round(sqrt(pow(a[0]-b[0],2) + pow(a[1]-b[1], 2))/fs);
 function fn_all(pts) = add([for(i=[0:len(pts)-2]) fn(pts[i], pts[i+1]), 
-    fn(pts[0], pts[len(pts)-1])])/3;
+    fn(pts[0], pts[len(pts)-1])*5])/6;
 
 function fn_circle(r, angle) = round((PI *r*angle)/(180*fs));
 
